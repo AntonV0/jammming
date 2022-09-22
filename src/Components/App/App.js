@@ -8,16 +8,27 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [{name: "Name 1", artist: "Artist 1", album: "Album 1", id: 1},
-                      {name: "Name 2", artist: "Artist 2", album: "Album 2", id: 2},
-                      {name: "Name 3", artist: "Artist 3", album: "Album 3", id: 3}],
+      searchResults: [{ name: "Name 1", artist: "Artist 1", album: "Album 1", id: 1 },
+                      { name: "Name 2", artist: "Artist 2", album: "Album 2", id: 2 },
+                      { name: "Name 3", artist: "Artist 3", album: "Album 3", id: 3 }],
       playlistName: "My PlayList",
-      playlistTracks: [{name: "Playlist Name 1", artist: "Playlist Artist 1", album: "Playlist Album 1", id: 4},
-                       {name: "Playlist Name 2", artist: "Playlist Artist 2", album: "Playlist Album 2", id: 5},
-                       {name: "Playlist Name 3", artist: "Playlist Artist 3", album: "Playlist Album 3", id: 6}]
-    }
+      playlistTracks: [{ name: "Playlist Name 1", artist: "Playlist Artist 1", album: "Playlist Album 1", id: 4 },
+                       { name: "Playlist Name 2", artist: "Playlist Artist 2", album: "Playlist Album 2", id: 5 },
+                       { name: "Playlist Name 3", artist: "Playlist Artist 3", album: "Playlist Album 3", id: 6 }]
+    };
+    this.addTrack = this.addTrack.bind(this);
   }
-  
+
+  addTrack(track) {
+    let tracks = this.state.playlistTracks;
+    if (tracks.find(savedTrack => savedTrack.id === track.id)) {
+      return;
+    };
+
+    tracks.push(track);
+    this.setState({playlistTracks: tracks});
+  }
+
   render() {
     return (
       <div>
@@ -25,7 +36,8 @@ class App extends React.Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} />
+            <SearchResults searchResults={this.state.searchResults} 
+                           onAdd={this.addTrack}/>
             <Playlist playlistName={this.state.playlistName} 
                       playlistTracks={this.state.playlistTracks} />
           </div>

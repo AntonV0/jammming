@@ -1,5 +1,5 @@
-const clientId = ""; // A specific API key will not be included in this project.
-const redirectUri = "http://localhost:3000/"
+const clientId = "01c39d939f414d06a97170e85973018e";
+const redirectUri = "https://www.jammming-AntonV0.surge.sh"
 
 let accessToken = "";
 
